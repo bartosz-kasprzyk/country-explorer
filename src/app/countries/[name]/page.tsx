@@ -2,7 +2,6 @@ import { DetailPageContainer } from "@/components/Containers";
 import { CountryDetailsTile } from "@/components/CountryDetailsTile";
 import { FullWidthButton } from "@/components/Buttons";
 import { notFound } from "next/navigation";
-import { CountryDetails } from "@/types/country";
 
 interface CountryDetailProps {
   params: { name: string };
