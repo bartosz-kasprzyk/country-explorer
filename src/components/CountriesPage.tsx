@@ -5,6 +5,9 @@ import { CountryList } from "./CountryList";
 import { CountryTile } from "./CountryTile";
 import useFavorites from "@/hooks/useFavorites";
 import { Title } from "./Text";
+import { useEffect, useState } from "react";
+import { CountryListControls } from "./CountryListControls";
+import { WorldMap } from "./WorldMap";
 
 interface CountryProps {
   flags: {
@@ -33,15 +36,63 @@ interface CountriesPageProps {
 export default function CountriesPage({
   initialCountries,
 }: CountriesPageProps) {
+  const [countries, setCountries] = useState(initialCountries);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [regionFilter, setRegionFilter] = useState("");
   const { favorites, toggleFavorite } = useFavorites();
 
-  const filteredCountries = initialCountries.filter((country) =>
-    country.name.common.toLowerCase()
+  useEffect(() => {
+    if (!regionFilter) {
+      setCountries(initialCountries);
+      return;
+    }
+
+    async function fetchByRegion() {
+      try {
+        const response = await fetch(`/api/region?region=${regionFilter}`);
+        if (!response.ok) throw new Error("Failed to fetch region");
+        const data = await response.json();
+        setCountries(data);
+      } catch (error) {
+        console.error(error);
+        setCountries([]);
+      }
+    }
+
+    fetchByRegion();
+  }, [regionFilter, initialCountries]);
+
+  const filteredCountries = countries.filter((country) =>
+    country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const regionList: string[] = [];
+  for (const country of initialCountries) {
+    const region = country.region;
+    if (region && !regionList.includes(region)) {
+      regionList.push(region);
+    }
+  }
 
   return (
     <MainPageContainer>
       <Title>Country Explorer</Title>
+
+      <div style={{ maxWidth: "800px", margin: "-10px auto 10px" }}>
+        <WorldMap
+          regionFilter={regionFilter}
+          setRegionFilter={setRegionFilter}
+        />
+      </div>
+
+      <CountryListControls
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        regionFilter={regionFilter}
+        setRegionFilter={setRegionFilter}
+        regionList={regionList}
+      />
+
       <CountryList>
         {filteredCountries.map((country) => (
           <CountryTile
