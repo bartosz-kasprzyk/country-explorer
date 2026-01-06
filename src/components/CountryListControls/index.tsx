@@ -26,6 +26,10 @@ export function CountryListControls({
   return (
     <ControlsWrapper>
       <ControlsGroup>
+        <StyledButton href="/favorites">❤️ Favorites</StyledButton>
+      </ControlsGroup>
+
+      <ControlsGroup>
         <SearchInput
           type="text"
           placeholder="Search by name..."

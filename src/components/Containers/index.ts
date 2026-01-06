@@ -13,3 +13,8 @@ export const DetailPageContainer = styled.div`
   padding: 20px;
   text-align: center;
 `;
+
+export const CenteredContainer = styled.div`
+  text-align: center;
+  margin-top: 32px;
+`;

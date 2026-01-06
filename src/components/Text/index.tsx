@@ -7,3 +7,9 @@ export const Title = styled.h1`
   margin: 50px 0;
   text-align: center;
 `;
+
+export const Message = styled.p`
+  font-size: 20px;
+  margin-bottom: 88px;
+  text-align: center;
+`;
