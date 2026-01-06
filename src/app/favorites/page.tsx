@@ -25,9 +25,9 @@ export default function Favorites() {
           "https://restcountries.com/v3.1/all?fields=name,flags,region,cca3"
         );
         const allCountries: Country[] = await response.json();
-        const filtered = allCountries.filter((country) =>
-          favorites.includes(country.cca3)
-        );
+        const filtered = allCountries
+          .filter((country) => favorites.includes(country.cca3))
+          .sort((a, b) => a.name.common.localeCompare(b.name.common));
         setCountries(filtered);
       } catch (error) {
         console.error(error);

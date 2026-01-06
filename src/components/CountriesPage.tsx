@@ -62,9 +62,11 @@ export default function CountriesPage({
     fetchByRegion();
   }, [regionFilter, initialCountries]);
 
-  const filteredCountries = countries.filter((country) =>
-    country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredCountries = countries
+    .filter((country) =>
+      country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => a.name.common.localeCompare(b.name.common));
 
   const regionList: string[] = [];
   for (const country of initialCountries) {
