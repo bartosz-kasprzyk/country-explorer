@@ -26,7 +26,7 @@ export function CountryTile({
 
   return (
     <Tile>
-      <TileLink href={`/countries/${encodeURIComponent(country.name.common)}`}>
+      <TileLink href={`/countries/${country.name.common}`}>
         <Flag
           src={country.flags.svg}
           alt={`Flag of ${country.name.common}`}

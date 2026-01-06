@@ -23,9 +23,7 @@ export default async function CountryDetail({ params }: CountryDetailProps) {
   const { name } = await params;
 
   const response = await fetch(
-    `https://restcountries.com/v3.1/name/${encodeURIComponent(
-      name
-    )}?fullText=true`
+    `https://restcountries.com/v3.1/name/${name}?fullText=true`
   );
   const data = await response.json();
   const country = data[0];
