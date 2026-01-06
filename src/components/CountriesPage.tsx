@@ -78,7 +78,7 @@ export default function CountriesPage({
     <MainPageContainer>
       <Title>Country Explorer</Title>
 
-      <div style={{ maxWidth: "800px", margin: "-10px auto 10px" }}>
+      <div style={{ maxWidth: "700px", margin: "-20px auto 20px" }}>
         <WorldMap
           regionFilter={regionFilter}
           setRegionFilter={setRegionFilter}
