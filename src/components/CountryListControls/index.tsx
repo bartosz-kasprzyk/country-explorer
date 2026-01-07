@@ -26,6 +26,7 @@ export function CountryListControls({
   return (
     <ControlsWrapper>
       <ControlsGroup>
+        <StyledButton href="/random">🎲 Random Country</StyledButton>
         <StyledButton href="/favorites">❤️ Favorites</StyledButton>
       </ControlsGroup>
 
