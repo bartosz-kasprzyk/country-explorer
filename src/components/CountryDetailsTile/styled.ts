@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
 export const Card = styled.div`
@@ -16,4 +17,12 @@ export const FlagImage = styled(Image)`
   height: 120px;
   object-fit: contain;
   display: block;
+`;
+
+export const BorderLink = styled(Link)`
+  text-decoration: underline;
+
+  &:hover {
+    filter: brightness(0.85);
+  }
 `;

@@ -1,13 +1,19 @@
 "use client";
 
 import { CountryDetails } from "@/types/country";
-import { Card, FlagImage } from "./styled";
+import { BorderLink, Card, FlagImage } from "./styled";
+import { useCountryMap } from "@/hooks/useCountryMap";
+import Link from "next/link";
 
 interface CountryDetailsTileProps {
   country: CountryDetails;
 }
 
 export function CountryDetailsTile({ country }: CountryDetailsTileProps) {
+  const { countryMap, loading } = useCountryMap();
+
+  if (loading) return <p>Loading…</p>;
+
   return (
     <Card>
       <h1>{country.name.common}</h1>
@@ -34,7 +40,27 @@ export function CountryDetailsTile({ country }: CountryDetailsTileProps) {
               .join(", ")
           : "N/A"}
       </p>
-      <p>Borders: {country.borders?.join(", ") || "None"}</p>
+      <p>
+        Borders:{" "}
+        {country.borders && country.borders.length > 0
+          ? country.borders
+              .map((code) => {
+                const name = countryMap?.[code];
+                if (!name) return null;
+                return (
+                  <BorderLink key={code} href={`/countries/${name}`}>
+                    {name}
+                  </BorderLink>
+                );
+              })
+              .filter(Boolean)
+              .reduce<React.ReactNode[]>((acc, curr, index) => {
+                if (index > 0) acc.push(", ");
+                acc.push(curr as React.ReactNode);
+                return acc;
+              }, [])
+          : "None"}
+      </p>
     </Card>
   );
 }
